@@ -7,34 +7,42 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    var url: URL = URL(string: "https://api.chucknorris.io/jokes/random")!
+enum Alert {
+    case success
+    case failed
     
+    var title: String {
+        switch self {
+        case .success:
+            return "Success"
+        case .failed:
+            return "Failed"
+        }
+    }
+    
+    var message: String {
+        switch self {
+        case .success:
+            return "You can see the results in the Debug area"
+        case .failed:
+            return "You can see error in the Debug area"
+        }
+    }
+}
+
+final class ViewController: UIViewController {
+
+    var url = URL(string: "https://api.chucknorris.io/jokes/random")!
     var person: Person!
     
     @IBOutlet var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPerson()
         fetchImage()
     }
-    
-    private func fetchImage() {
-        URLSession.shared.dataTask(with: URL(string: "https://top-honderd.nl/content/lists/top-100-best-chuck-norris-feiten.jpg")!) { [weak self] data, response, error in
-            guard let data, let response else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            
-            print(response)
-            
-            DispatchQueue.main.async {
-                self?.imageView.image = UIImage(data: data)
-            }
-            
-        }.resume()
-    }
+
 }
 
 extension ViewController {
@@ -48,6 +56,22 @@ extension ViewController {
         }
     }
     
+    private func fetchImage() {
+        URLSession.shared.dataTask(with: URL(string: person.icon_url)!) { [weak self] data, response, error in
+            guard let data, let response else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+
+            print(response)
+
+            DispatchQueue.main.async {
+                self?.imageView.image = UIImage(data: data)
+            }
+
+        }.resume()
+    }
+    
     private func fetchPerson() {
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let data else {
@@ -58,7 +82,7 @@ extension ViewController {
             do {
                 let decoder = JSONDecoder()
                 let person = try decoder.decode(Person.self, from: data)
-                print(person)
+                print(person.icon_url)
                 self?.showAlert(withStatus: .success)
             } catch {
                 print(error.localizedDescription)
