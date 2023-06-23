@@ -32,15 +32,21 @@ enum Alert {
 
 final class ViewController: UIViewController {
 
-    var url = URL(string: "https://api.chucknorris.io/jokes/random")!
+    var url = URL(string: "https://rickandmortyapi.com/api/character/108")!
     var person: Person!
     
     @IBOutlet var imageView: UIImageView!
     
+    @IBOutlet var nameLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPerson()
-        fetchImage()
+        configure(with: person)
+    }
+    
+    func configure(with person: Person) {
+        nameLabel.text = person.name
+        
     }
 
 }
@@ -57,7 +63,7 @@ extension ViewController {
     }
     
     private func fetchImage() {
-        URLSession.shared.dataTask(with: URL(string: person.icon_url)!) { [weak self] data, response, error in
+        URLSession.shared.dataTask(with: URL(string: person.image)!) { [weak self] data, response, error in
             guard let data, let response else {
                 print(error?.localizedDescription ?? "No error description")
                 return
@@ -82,7 +88,8 @@ extension ViewController {
             do {
                 let decoder = JSONDecoder()
                 let person = try decoder.decode(Person.self, from: data)
-                print(person.icon_url)
+                print(person.image)
+            
                 self?.showAlert(withStatus: .success)
             } catch {
                 print(error.localizedDescription)

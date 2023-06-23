@@ -22,6 +22,12 @@
                                     <constraint firstAttribute="height" constant="350" id="fsI-05-tUs"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Se-vB-khI">
+                                <rect key="frame" x="16" y="529" width="361" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -29,10 +35,14 @@
                             <constraint firstItem="MmE-oq-Cv7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Qau-Ld-piK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MmE-oq-Cv7" secondAttribute="trailing" constant="16" id="UBK-3f-DME"/>
                             <constraint firstItem="MmE-oq-Cv7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bFk-v6-DE6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Se-vB-khI" secondAttribute="trailing" constant="16" id="cbc-d3-X6t"/>
+                            <constraint firstItem="7Se-vB-khI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="ipv-Oa-u5v"/>
+                            <constraint firstItem="7Se-vB-khI" firstAttribute="top" secondItem="MmE-oq-Cv7" secondAttribute="bottom" constant="120" id="orU-Oc-OcI"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="MmE-oq-Cv7" id="EBa-ng-kdN"/>
+                        <outlet property="nameLabel" destination="7Se-vB-khI" id="GSy-EM-aKf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
